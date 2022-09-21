@@ -1,0 +1,73 @@
+﻿<Window x:Class="MCLangPackMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MCLangPackMaker"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Background="#202020"
+        >
+    <Grid>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0" Margin="0,8,0,20" >
+                <TextBlock Text="Search" FontSize="24" />
+                <TextBox Text="{Binding SearchValue, Mode=TwoWay}" Style="{StaticResource TextBox}" PreviewKeyDown="SearchKeyDown" />
+                <Button Content="Search" Click="SearchClick"
+                    Height="26" />
+            </StackPanel>
+
+            <Grid Grid.Row="1">
+                <ListView x:Name="lvLangPackSearches" ItemsSource="{Binding Searches, Mode=TwoWay}"
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                          MaxHeight="300"
+                      >
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="Background" Value="Black" />
+                        </Style>
+                    </ListView.Resources>
+
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn Header="Key">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Key}" Style="{StaticResource TextBox}"
+                                                 IsReadOnly="True"
+                                             Margin="0" 
+                                             VerticalAlignment="Center" 
+                                             />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Value">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Value}" Style="{StaticResource TextBox}"
+                                             Margin="0" 
+                                             BorderThickness="0"
+                                             VerticalAlignment="Center" 
+                                             />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" VerticalAlignment="Bottom">
+            <Button Content="Save" Click="SaveLangPackClick" Height="26" />
+        </Grid>
+    </Grid>
+</Window>
